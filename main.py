@@ -1,10 +1,20 @@
 from selenium import webdriver
 import time
+"""
+File Description: 
+Author: jerryzlz
+Mail: jerryzlz4@hotmail.com
+"""
 
 
 class GetList(object):
 
     def __init__(self, username, password):
+        """
+        初始化浏览器窗口
+        :param username: 登录手机/邮箱
+        :param password: 登录密码
+        """
         self.driver = webdriver.Firefox()
         self.driver.set_window_size(375, 667)
         self.driver.get('https://weibo.cn/')
@@ -16,7 +26,12 @@ class GetList(object):
         self.driver.find_element_by_xpath('//*[@id="loginAction"]').click()
         time.sleep(3)
 
-    def get_follow_list(self, sleep_time=2.5):
+    def get_follow_list(self):
+        """
+        获取关注列表
+        :param sleep_time:每次翻页的等候时间
+        :return:
+        """
         print("=" * 100)
         print("开始获取关注列表")
         # self.driver.minimize_window()
@@ -40,7 +55,7 @@ class GetList(object):
                 self.driver.find_element_by_link_text("下页").click()
             except:
                 break
-            time.sleep(sleep_time)
+            time.sleep(1)
         self.driver.find_element_by_xpath('/html/body/div[1]/a[1]').click()
         for i in range(len(follow_namelist)):
             follow_list.append([follow_namelist[i], follow_urllist[i]])
@@ -52,8 +67,12 @@ class GetList(object):
         print("关注列表已成功保存")
         print("=" * 100)
 
-
-    def get_fan_list(self, sleep_time=2.5):
+    def get_fan_list(self):
+        """
+        获取粉丝列表
+        :param sleep_time: 每次翻页的等候时间
+        :return:
+        """
         print("=" * 100)
         print("开始获取粉丝列表")
         # self.driver.minimize_window()
@@ -77,7 +96,7 @@ class GetList(object):
                 self.driver.find_element_by_link_text("下页").click()
             except:
                 break
-            time.sleep(sleep_time)
+            time.sleep(1)
         self.driver.find_element_by_xpath('/html/body/div[1]/a[1]').click()
 
         for i in range(len(fan_namelist)):
@@ -90,7 +109,11 @@ class GetList(object):
         print("粉丝列表已成功保存")
         print("=" * 100)
 
-    def file_mutual_following(self):
+    def mutual_following(self):
+        """
+        比对列表文件（暂未完成）
+        :return:
+        """
         pass
 
 
@@ -105,39 +128,23 @@ while True:
     print("=" * 100)
     num = int(input("请输入所需要的操作编号："))
     if num == 1:
-        speed = float(input("设置获取列表时点击下一页的等待时间 若不设置请直接回车 默认值为2.5秒（单位：秒）："))
         name = input("请输入登录邮箱/手机号：")
         psd = input("请输入密码：")
-        main = GetList(name, psd)
-        if speed == "":
-            continue
-        else:
-            main.get_follow_list(speed)
+        main.get_follow_list()
     elif num == 2:
-        speed = float(input("设置获取列表时点击下一页的等待时间 若不设置请直接回车 默认值为2.5秒（单位：秒）："))
         name = input("请输入登录邮箱/手机号：")
         psd = input("请输入密码：")
         main = GetList(name, psd)
-        if speed == "":
-            continue
-        else:
-            main.get_fan_list(speed)
+        main.get_fan_list()
     elif num == 3:
-        speed = float(input("设置获取列表时点击下一页的等待时间 若不设置请直接回车 默认值为2.5秒（单位：秒）："))
         name = input("请输入登录邮箱/手机号：")
         psd = input("请输入密码：")
         main = GetList(name, psd)
-        if speed == "":
-            continue
-        else:
-            main.get_follow_list(speed)
-            main.get_fan_list(speed)
+        main.get_follow_list()
+        main.get_fan_list()
     elif num == 6:
         print("程序已关闭")
         break
     else:
         print("输入错误，请重新输入")
         continue
-
-
-
