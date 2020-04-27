@@ -19,7 +19,7 @@ A Weibo spider base on selenium to backup all of subscribers.
 - 文件名以fan_或following_开头后接导出的时间（UTC）
 - 文件格式：
 ```sh
-微博昵称, 微博主页地址
+微博昵称， 微博主页地址
 
 例：
 wb昵称看简介， https://weibo.com/buyixiaohua
