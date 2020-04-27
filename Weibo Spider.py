@@ -1,7 +1,8 @@
 from selenium import webdriver
 import time
+import account
 """
-File Description: 
+File Description: 爬虫主程序
 Author: jerryzlz
 Mail: jerryzlz4@hotmail.com
 """
@@ -9,7 +10,7 @@ Mail: jerryzlz4@hotmail.com
 
 class GetList(object):
 
-    def init(self, username, password):
+    def init(self, info):
         """
         初始化浏览器窗口
         :param username: 登录手机/邮箱
@@ -20,8 +21,8 @@ class GetList(object):
         self.driver.get('https://weibo.cn/')
         self.driver.find_element_by_xpath('/html/body/div[2]/div/a[1]').click()
         time.sleep(3)
-        self.driver.find_element_by_xpath('//*[@id="loginName"]').send_keys(username)
-        self.driver.find_element_by_xpath('//*[@id="loginPassword"]').send_keys(password)
+        self.driver.find_element_by_xpath('//*[@id="loginName"]').send_keys(info[0])
+        self.driver.find_element_by_xpath('//*[@id="loginPassword"]').send_keys(info[1])
         self.driver.find_element_by_xpath('//*[@id="loginWrapper"]').click()
         self.driver.find_element_by_xpath('//*[@id="loginAction"]').click()
         time.sleep(3)
@@ -34,7 +35,7 @@ class GetList(object):
         """
         print("=" * 100)
         print("开始获取关注列表")
-        # self.driver.minimize_window()
+        self.driver.minimize_window()
         follow_list = []
         follow_namelist = []
         follow_urllist = []
@@ -76,7 +77,7 @@ class GetList(object):
         """
         print("=" * 100)
         print("开始获取粉丝列表")
-        # self.driver.minimize_window()
+        self.driver.minimize_window()
         fan_list = []
         fan_namelist = []
         fan_urllist = []
@@ -165,6 +166,16 @@ class GetList(object):
             print("=" * 100)
             print("两个列表之间没有区别，未保存对比列表")
 
+    def login(self):
+        if (account.USERNAME == "" and account.PASSWORD == "")\
+                or (account.USERNAME == "Your Username" and account.PASSWORD == "Your Password"):
+            name = input("请输入登录邮箱/手机号：")
+            psd = input("请输入密码：")
+        else:
+            name = account.USERNAME
+            psd = account.PASSWORD
+        return name, psd
+
 
 while True:
     print("="*100)
@@ -177,28 +188,22 @@ while True:
     num = int(input("请输入所需要的操作编号："))
     if num == 1:
         print("=" * 100)
-        name = input("请输入登录邮箱/手机号：")
-        psd = input("请输入密码：")
         main = GetList()
-        main.init(name, psd)
-        main.get_follow_list(0.5)
+        main.init(main.login())
+        main.get_follow_list(1)
         main.close()
     elif num == 2:
         print("=" * 100)
-        name = input("请输入登录邮箱/手机号：")
-        psd = input("请输入密码：")
         main = GetList()
-        main.init(name, psd)
-        main.get_fan_list(0.5)
+        main.init(main.login())
+        main.get_fan_list(1)
         main.close()
     elif num == 3:
         print("=" * 100)
-        name = input("请输入登录邮箱/手机号：")
-        psd = input("请输入密码：")
         main = GetList()
-        main.init(name, psd)
-        main.get_follow_list(0.5)
-        main.get_fan_list(0.5)
+        main.init(main.login())
+        main.get_follow_list(1)
+        main.get_fan_list(1)
         main.close()
     elif num == 4:
         print("=" * 100)
