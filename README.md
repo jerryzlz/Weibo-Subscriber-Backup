@@ -9,10 +9,11 @@ A Weibo spider base on selenium to backup all of the subscribers.
 - 简单清爽，只专注列表增减变化
 
 ## 快速开始
-1. 拥有python3.x环境
+1. 安装python3.x环境
 2. 下载源码
 3. 解压后在当前目录下运行`pip3 install -r requirements.txt`安装selenium依赖环境
-4. 运行`RUN_BEFORE_USE.bat`将浏览器内核移动至环境变量中（移动至用户目录\AppData\Local\Temp）也可手动将浏览器内核移动到其他环境变量地址中
+4. 运行`RUN_BEFORE_USE.bat`将浏览器内核移动至环境变量中（移动至用户目录\AppData\Local\Temp）
+也可手动将浏览器内核移动到其他环境变量地址中
 5. 运行`Weibo Spider.py`即可
 
 ## 导出格式
