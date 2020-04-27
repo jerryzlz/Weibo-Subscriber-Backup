@@ -1,5 +1,5 @@
 # Weibo-Subscriber-Backup
-A Weibo spider base on selenium to backup all of subscribers.
+A Weibo spider base on selenium to backup all of the subscribers.
 
 ## 功能描述
 - 使用selenium爬取weibo.cn
